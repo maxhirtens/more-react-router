@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ListColors from "./ListColors";
+import ColorDetails from "./ColorDetails";
+import ColorForm from "./ColorForm";
 
 function App() {
-  return (
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+           <Routes>
+            <Route exact path="/colors" element={<ListColors colors={App.defaultProps.colors} />} />
+            <Route exact path="/colors/:name" element={<ColorDetails />} />
+            <Route exact path="/colors/new" element={<ColorForm />} />
+            <Route path='*' element={<Navigate to='/colors' />} />
+          </Routes>
+      </BrowserRouter>
     </div>
   );
+}
+
+App.defaultProps = {
+  colors: [
+    "red",
+    "green",
+    "orange"
+  ]
 }
 
 export default App;
